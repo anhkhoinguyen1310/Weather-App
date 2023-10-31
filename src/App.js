@@ -3,7 +3,9 @@ import {useEffect,useState,useCallback} from 'react'
 import { createApi } from 'unsplash-js'
 import {Container, Nav, Navbar,  Button,NavDropdown} from 'react-bootstrap';
 import React from 'react';
+import { ThreeBody } from '@uiball/loaders'
 import './App.css';
+
 
 
 const unsplash = createApi({
@@ -109,8 +111,17 @@ function App() {
   })
   },[fetchWeather])
 
-  if(!weather) {
-    return <div> Loading!</div>;
+  if(!weather) { 
+    return (
+    <div className = "centerLoading"> 
+      <ThreeBody 
+      size={100}
+      speed={1.1} 
+      color="black" 
+     />
+     
+    </div>)
+    
 }
 const capitalizeFirstLetter = (str) => {
    return str.split(' ').map(word => {
@@ -131,6 +142,7 @@ return (
       <div className="city-buttons">
           {Citties.map((city) => {
               return <Button className="customButton" variant="outline-warning" onClick ={() => fetchWeather(city.lat, city.lon)}>{city.name}</Button>
+              
           })}
       </div>
       
@@ -141,6 +153,7 @@ return (
           <h3>{(weather.main.temp-273.15).toFixed(2)}°C/ {(((weather.main.temp-273.15) *9/5) + 32).toFixed(2)}°F</h3>
           <h3>{capitalizeFirstLetter(weather.weather[0].description)}</h3>
       </Container>
+     
   </div>
 );
 
