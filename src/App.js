@@ -71,15 +71,15 @@ const Citties = [
     name: "Tokyo"
   },
   {
-    lat: "61.91176852060433", 
-    lon: "5.986028791933799",
-    name: "Norway",
-  },
-  {
     lat: "47.37807366072915",
     lon:  "8.545320055922465",
     name: "Switzerland",
   },
+  {
+    lat: "49.28411791305166",
+    lon: "-123.12351624195152",
+    name: "Vancouver",
+  }
 ]
 
 function App() {
