@@ -1,5 +1,5 @@
 
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useCallback} from 'react'
 import { createApi } from 'unsplash-js'
 import {Container, Nav, Navbar,  Button,NavDropdown} from 'react-bootstrap';
 import React from 'react';
@@ -85,13 +85,13 @@ function App() {
   const [weather, setWeather] = useState (null)
   const [backgroundImage, setBackgroundImage] = useState(null)
   //fetch api
-  async function fetchWeather(lat, lon) {
+  const fetchWeather = useCallback(async (lat, lon) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`);
     const data = await response.json()
     setWeather(data)
     getPicFromUnSplash(data.name)
     console.log({data})
-  }
+  }, [])
   const getPicFromUnSplash = async (city) => { 
   const go = await unsplash.search.getPhotos({
     query: city
@@ -107,7 +107,7 @@ function App() {
     const {latitude, longitude} = pos.coords
     fetchWeather(latitude,longitude);
   })
-  },[])
+  },[fetchWeather])
 
   if(!weather) {
     return <div> Loading!</div>;
